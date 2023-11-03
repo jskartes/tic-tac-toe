@@ -6,6 +6,7 @@
 body {
   align-items: center;
   background-color: lightgray;
+  cursor: default;
   display: flex;
   flex-direction: column;
   font-family: Gluten, cursive;
@@ -35,6 +36,7 @@ p {
 #board {
   background-color: white;
   border-radius: 2vmin;
+  cursor: pointer;
   display: grid;
   gap: 1vmin;
   grid-template: repeat(3, 15vmin) / repeat(3, 15vmin);
@@ -49,6 +51,12 @@ p {
   font-weight: 600;
   padding-top: 1.8vmin;
   text-align: center;
+  transition: 0.15s ease-in-out;
+}
+
+#board div:hover {
+  box-shadow: 0 0 1vmin gold;
+  transform: scale(0.95);
 }
 
 button {
@@ -56,6 +64,7 @@ button {
   border: none;
   border-radius: 2vmin;
   color: white;
+  cursor: pointer;
   font-family: Gluten, cursive;
   font-size: 2.5vmin;
   font-weight: 600;

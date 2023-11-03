@@ -2,6 +2,9 @@ const prompt = document.querySelector('p');
 const boardDisplay = document.getElementById('board');
 const actionButton = document.querySelector('button');
 
+boardDisplay.addEventListener('click', handleBoardClick);
+actionButton.addEventListener('click', handleActionButtonClick);
+
 let currentPlayer;
 const board = [
   [0, 0, 0],
@@ -21,8 +24,6 @@ const playerMarkers = {
   }
 }
 
-boardDisplay.addEventListener('click', handleBoardClick);
-
 function handleBoardClick(event) {
   if (event.target.tagName !== 'DIV') return;
   
@@ -33,6 +34,10 @@ function handleBoardClick(event) {
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
     prompt.textContent = `Player ‘${currentPlayer}’, make your move!`
   }
+}
+
+function handleActionButtonClick(event) {
+  init();
 }
 
 function init() {
