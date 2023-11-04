@@ -42,6 +42,7 @@ p {
   grid-template: repeat(3, 15vmin) / repeat(3, 15vmin);
   margin: 6vmin;
   padding: 1vmin;
+  transition: 0.25s ease-in-out;
 }
 
 #board div {
