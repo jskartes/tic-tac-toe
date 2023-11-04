@@ -56,7 +56,7 @@ p {
 }
 
 #board div:hover {
-  box-shadow: 0 0 1vmin gold;
+  box-shadow: 0 0 1vmin gold !important;
   transform: scale(0.95);
 }
 
