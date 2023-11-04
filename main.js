@@ -1,60 +1,93 @@
 /*===== CONFIGURATION =====*/
 
-const prompt = document.querySelector('p');
-const boardDisplay = document.getElementById('board');
+const gameStateMessage = document.getElementById('game-state');
+const board = document.getElementById('board');
 const actionButton = document.querySelector('button');
+
+const players = {
+  '0': {
+    token: '',
+    squareColor: 'darkgray'
+  },
+  '1': {
+    token: 'X',
+    tokenColor: '#622',
+    squareColor: '#c88'
+  },
+  '-1': {
+    token: 'O',
+    tokenColor: '#226',
+    squareColor: '#88c'
+  }
+};
 
 
 /*===== MODEL =====*/
 
-let currentPlayer;
-const board = [
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-];
+let currentPlayer, winner, currentBoard;
 
 
 /*===== CONTROLLER =====*/
 
-boardDisplay.addEventListener('click', handleBoardClick);
-actionButton.addEventListener('click', handleActionButtonClick);
-
 function handleBoardClick(event) {
   if (event.target.tagName !== 'DIV') return;
-  
   if (!event.target.textContent) {
-    event.target.textContent = playerMarkers[currentPlayer].marker;
-    event.target.style.color = playerMarkers[currentPlayer].markerColor;
-    event.target.style.backgroundColor = playerMarkers[currentPlayer].markerBackgroundColor;
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    prompt.textContent = `Player ‘${currentPlayer}’, make your move!`
+    const i = event.target.getAttribute('id');
+    currentBoard[i] = currentPlayer;
+    currentPlayer = -currentPlayer;
+    winner = checkForWinner();
   }
+  render();
 }
 
-function handleActionButtonClick(event) {
+function handleActionButtonClick() {
   init();
 }
 
-function init() {
-  currentPlayer = 'X';
-  prompt.textContent = 'Player ‘X’, make your move!';
+function checkForWinner() {
+
 }
 
 
 /*===== VIEW =====*/
 
-const playerMarkers = {
-  X: {
-    marker: 'X',
-    markerColor: '#622',
-    markerBackgroundColor: '#c88'
-  },
-  O: {
-    marker: 'O',
-    markerColor: '#226',
-    markerBackgroundColor: '#88c'
-  }
+board.addEventListener('click', handleBoardClick);
+actionButton.addEventListener('click', handleActionButtonClick);
+
+
+/*===== UTILITY FUNCTIONS =====*/
+
+function init() {
+  currentPlayer = 1;
+  gameStateMessage.textContent = `Player ‘${players[currentPlayer].token}’, make your move!`;
+  currentBoard = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  render();
+}
+
+function render() {
+  renderGameStateMessage();
+  renderBoard();
+  renderActionButton();
+}
+
+function renderGameStateMessage() {
+  gameStateMessage.textContent = `Player ‘${players[currentPlayer].token}’, make your move!`;
+}
+
+function renderBoard() {
+  currentBoard.forEach((val, i) => {
+    const square = document.getElementById(i);
+    square.textContent = players[val].token;
+    square.style.color = players[val].tokenColor;
+    square.style.backgroundColor = players[val].squareColor;
+  });
+}
+
+function renderActionButton() {
+  !winner && currentBoard.every(i => i === 0) ?
+    actionButton.setAttribute('disabled', '') :
+    actionButton.removeAttribute('disabled');
+  actionButton.textContent = !winner ? 'RESET GAME' : 'PLAY AGAIN';
 }
 
 

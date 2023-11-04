@@ -77,3 +77,11 @@ button:hover {
   color: black;
   transform: scale(1.15);
 }
+
+button:disabled {
+  background-color: darkgray;
+  color: white;
+  cursor: default;
+  opacity: 0.2;
+  transform: none;
+}
